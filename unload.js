@@ -5,12 +5,12 @@ $(document).ready(function () {
 	 * Customer Sprcific firebase project settings
 	 * */
     var config = {
-        apiKey: "AIzaSyAQB2YQ2g4gWIwFHZIBEV1gy7s3xGNISUo",
+        apiKey: "",
         authDomain: "push-906.firebaseapp.com",
         databaseURL: "https://push-906.firebaseio.com",
         projectId: "push-906",
         storageBucket: "push-906.appspot.com",
-        messagingSenderId: "987079568654"
+        messagingSenderId: ""
     };
 
     firebase.initializeApp(config);
@@ -41,7 +41,6 @@ $(document).ready(function () {
                         	
                         	if(x!=currentToken)
                         		{
-                        		//messaging.deleteToken(x);//...?
                         		window.localStorage.setItem('currentToken', currentToken);
                         		setTokenSentToServer(false);
                         		sendTokenToServer(currentToken);//here console log won't b printed
@@ -53,8 +52,6 @@ $(document).ready(function () {
                         } else {
                             // Show permission request.
                             console.log('No Instance ID token available. Request permission to generate one.');
-                            // Show permission UI.
-                            ////updateUIForPushPermissionRequired();
                             setTokenSentToServer(false);
                         }
 
@@ -86,16 +83,11 @@ $(document).ready(function () {
                     
                 	messaging.getToken().then(function (refreshedToken) {
                             
-                		console.log('Token refreshed.');
+                	    console.log('Token refreshed.');
                             // Indicate that the new Instance ID token has not yet been sent to the
                             // app server.
                             setTokenSentToServer(false);
-                           
-                            
-                            // Get updated InstanceID token.
-                            /*String refreshedToken = FirebaseInstanceId.getInstance().getToken();//try catch...?
-                            console.log("Refreshed token: " + refreshedToken);
-*/
+				
                             // Send Instance ID token to app server.
                             if (refreshedToken) {
                             	sendTokenToServer(refreshedToken);
@@ -115,7 +107,6 @@ $(document).ready(function () {
                         })
                         .catch(function (err) {
                             console.log('Unable to retrieve refreshed token ', err);
-                            //setTokenSentToServer(false);// 
                         });
                 });
                 // [END refresh_token]
@@ -147,12 +138,11 @@ function sendTokenToServer(currentToken) {
                 json: currentToken
             },
             success: function( data ) {
-            	 //alert(data);
-            	 setTokenSentToServer(true);//
+            	 setTokenSentToServer(true);
             },
             error:function(response){
-            	 alert("Failure"+response.status)//;
-            	 setTokenSentToServer(false);//
+            	 alert("Failure"+response.status)
+            	 setTokenSentToServer(false);
             }
         });
         
