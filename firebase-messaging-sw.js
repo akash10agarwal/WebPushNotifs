@@ -14,20 +14,18 @@ importScripts('https://www.gstatic.com/firebasejs/4.0.0/firebase-messaging.js');
  * Customer Specific firebase project settings
  * */
 var config = {
-	    apiKey: "AIzaSyAQB2YQ2g4gWIwFHZIBEV1gy7s3xGNISUo",
+	    apiKey: "",
 	    authDomain: "push-906.firebaseapp.com",
 	    databaseURL: "https://push-906.firebaseio.com",
 	    projectId: "push-906",
 	    storageBucket: "push-906.appspot.com",
-	    messagingSenderId: "987079568654"
+	    messagingSenderId: ""
 	  };
 		  
 firebase.initializeApp(config);
         			
 const messaging = firebase.messaging();
 
-//const maxVisibleActions = Notification.maxActions;
-//console.log(Notification.maxActions);//it's 2...
 var x;
 
 messaging.setBackgroundMessageHandler(function(payload) {
@@ -43,19 +41,19 @@ messaging.setBackgroundMessageHandler(function(payload) {
 	    icon: payload.data.icon,
 	    image: payload.data.image,
 	    actions: [
-	        { "action": "yes", "title": "Yes", "icon": payload.data.icon },//wat 2 do abt action:yes...?
+	        { "action": "yes", "title": "Yes", "icon": payload.data.icon },
 	        { "action": "no", "title": "No", "icon": payload.data.icon }//icon size 24px x 24px is apt for desktop chrome
 	      ],
 	    requireInteraction: false,
 	    renotify: true,//false always by default 
 	    dir: "auto",
 	    tag:"tag",
-	    timestamp: Date.parse('01 Jan 2000 00:00:00'),//unix epoch tym since 1970...?
+	    timestamp: Date.parse('01 Jan 2000 00:00:00'),
 	    
 	    sound:"no browser has support for this, anyways put an url for an audio.mp3",
 	    silent: false,//only for smartphones from here
 	    badge: "https://localhost:9002/sapbasketstorefront/_ui/addons/pushnotificationaddon/responsive/common/images/firebase.png",
-	    vibrate: [500,110,500,110,450,110,200,110,170,40,450,110,200,110,170,40,500]//""?	    
+	    vibrate: [500,110,500,110,450,110,200,110,170,40,450,110,200,110,170,40,500]    
 	  };
 
 	  return self.registration.showNotification(notificationTitle,notificationOptions);
